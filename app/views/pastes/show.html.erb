@@ -1,0 +1,20 @@
+
+<br>
+Title: <%= @paste.title %><br>
+Content: <input type="text" value=<%= @paste.content %> id="clipboard" style="border:none;" readonly>
+
+<br>
+
+<button onclick="copyToClipboard()">Copy text</button>
+
+
+
+<script>
+function copyToClipboard() {
+	console.log("here")
+  var copyText = document.getElementById("clipboard");
+  copyText.select();
+  document.execCommand("copy");
+  alert("Copied the text: " + copyText.value);
+}
+</script>

@@ -6,6 +6,10 @@ class PastesController < ApplicationController
 	def new
 	end
 
+	def show
+		@paste = Paste.find(params[:id])
+	end
+
 	def create
 		@paste = Paste.new(paste_params)
 		# If user signed in, save the user id into the paste
@@ -14,7 +18,7 @@ class PastesController < ApplicationController
 		end
 
 		if @paste.save
-			redirect_to root_path
+			redirect_to pastes_path
 		else
 			redirect_back(fallback_location: 'root')
 		end
