@@ -30,6 +30,16 @@ gem 'bcrypt', '~> 3.1.7'
 # Use gem to authorize admin/user/guest
 gem 'cancan'
 
+# Paginate
+gem 'kaminari'
+
+#figaro
+gem 'figaro'
+
+#recaptcha
+gem 'recaptcha', require: 'recaptcha/rails'
+
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

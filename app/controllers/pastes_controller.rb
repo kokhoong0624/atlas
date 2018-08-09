@@ -1,4 +1,8 @@
 class PastesController < ApplicationController
+	def index
+		@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
+	end
+
 	def new
 	end
 
@@ -8,8 +12,6 @@ class PastesController < ApplicationController
 		if logged_in?
 			@paste.user = current_user
 		end
-
-		byebug
 
 		if @paste.save
 			redirect_to root_path

@@ -1,0 +1,14 @@
+<br> 
+<% @pastes.each do |x| %>
+
+	<br>
+	Title : <%= x.title %> <br>
+	Content : <%= x.content %> <br>
+	<% if !x.user.nil? %> 
+		User: <%= x.user.username %> <br>
+	<% end %>
+	<br>
+<% end %>
+
+<%= paginate @pastes %>
+<%= page_entries_info @pastes %>
