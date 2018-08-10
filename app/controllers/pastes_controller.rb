@@ -1,6 +1,12 @@
 class PastesController < ApplicationController
+
+	before_action :check_update_rights, only: [:update, :destroy]
 	def index
-		@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
+		if params[:search]
+			@pastes = Paste.where('content LIKE ? or title LIKE ?', "%#{params[:search]}%","%#{params[:search]}%").page(params[:page]).per(10).all
+		else
+			@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
+		end
 	end
 
 	def new
@@ -26,6 +32,11 @@ class PastesController < ApplicationController
 	end
 
 	def destroy
+		@paste = Paste.find(params[:id])
+		@paste.destroy
+		respond_to do |format|
+			format.js
+		end
 	end
 
 
@@ -33,6 +44,18 @@ class PastesController < ApplicationController
 	#whitelist params
 	def paste_params
 		params.require(:paste).permit(:title, :content)
+	end
+
+	def check_update_rights
+		@paste = Paste.find(params[:id])
+		if current_user.id != @paste.user_id && !current_user.admin?
+			flash[:denied] = "Access denied!"
+			redirect_to pastes_path
+		end
+	end
+
+	def search_params
+		params.require(:search).permit(:search)
 	end
 
 end

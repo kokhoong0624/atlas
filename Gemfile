@@ -15,6 +15,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
+gem 'jquery-rails'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -39,6 +40,11 @@ gem 'figaro'
 #recaptcha
 gem 'recaptcha', require: 'recaptcha/rails'
 
+gem 'rspec'
+
+gem 'rspec-rails'
+
+gem 'rspec-given'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

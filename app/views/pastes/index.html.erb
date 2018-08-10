@@ -1,7 +1,13 @@
+
+<%= form_with url:pastes_path, local:true, method: :get do |form| %>
+<%= text_field_tag :search %>
+<%= submit_tag "Search", name: nil %>
+<% end %>
 <br> 
 <% @pastes.each do |x| %>
 
 	<br>
+	<div id="dv<%=x.id%>" > 
 	Title : <%= x.title %> <br>
 	Content : <input type="text" value=<%= x.content %> id=<%=x.id%> style="border:none;" readonly> <br>
 	<% if !x.user.nil? %> 
@@ -9,7 +15,10 @@
 	<% end %>
 	<%= link_to "Click to view more", paste_path(x.id) %>
 	<button onclick="copyToClipboard(<%=x.id%>)">Copy text</button>
+	<%= link_to "Delete", paste_path(x.id), method: :delete, data: { confirm: 'Are you sure you want to delete this paste?'}, remote: true %>
 	<br>
+	</div>
+
 <% end %>
 
 <%= paginate @pastes %>
