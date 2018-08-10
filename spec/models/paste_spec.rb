@@ -25,4 +25,15 @@ RSpec.describe Paste, :type => :model do
 	    expect(t.macro).to eq(:belongs_to)
   	end
 
+  	it "return search results for pastes" do
+    	paste = Paste.create(title:"test1", content:"searchresults") 
+    	@result = Paste.search(search: "test1")
+    	expect(@result).to eq([paste])
+	end
+
+    it "return search results for pastes" do
+    	@result = Paste.search(search: "test1")
+    	expect(@result).to eq([])
+  	end
+
 end

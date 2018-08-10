@@ -2,11 +2,12 @@ class PastesController < ApplicationController
 
 	before_action :check_update_rights, only: [:update, :destroy]
 	def index
-		if params[:search]
-			@pastes = Paste.where('content LIKE ? or title LIKE ?', "%#{params[:search]}%","%#{params[:search]}%").page(params[:page]).per(10).all
-		else
-			@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
-		end
+		# if params[:search]
+		# 	@pastes = Paste.where('content LIKE ? or title LIKE ?', "%#{params[:search]}%","%#{params[:search]}%").page(params[:page]).per(10).all
+		# else
+		# 	@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
+		# end
+		@pastes = Paste.search(params).page(params[:page]).per(10).all
 	end
 
 	def new
