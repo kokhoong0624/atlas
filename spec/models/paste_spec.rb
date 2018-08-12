@@ -7,11 +7,6 @@ RSpec.describe Paste, :type => :model do
 		expect(paste).to be_valid
 	end
 
-	it "should rename untitled pastes titles with untitled" do 
-		paste = Paste.new(content:'Test content')
-		expect(paste.title).to eq("untitled")
-	end
-
 
   	it "test for dependent destroy" do
   		user = User.create(username: 'kok', password:'abcd', email:'abcd@live.com')
@@ -25,11 +20,16 @@ RSpec.describe Paste, :type => :model do
 	    expect(t.macro).to eq(:belongs_to)
   	end
 
+    it "should rename untitled pastes titles with untitled" do 
+      paste = Paste.new(content:'Test content')
+      expect(paste.title).to eq("untitled")
+    end
+
   	it "return search results for pastes" do
     	paste = Paste.create(title:"test1", content:"searchresults") 
     	@result = Paste.search(search: "test1")
     	expect(@result).to eq([paste])
-	end
+    end
 
     it "return search results for pastes" do
     	@result = Paste.search(search: "test1")

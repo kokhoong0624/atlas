@@ -16,7 +16,7 @@ class Paste < ApplicationRecord
 		if params[:search].present?
 			return search_results(params[:search])
 		else
-			return all
+			return self.all.order(created_at: :desc)
 		end
 	end
 

@@ -2,15 +2,11 @@ class PastesController < ApplicationController
 
 	before_action :check_update_rights, only: [:update, :destroy]
 	def index
-		# if params[:search]
-		# 	@pastes = Paste.where('content LIKE ? or title LIKE ?', "%#{params[:search]}%","%#{params[:search]}%").page(params[:page]).per(10).all
-		# else
-		# 	@pastes = Paste.order("created_at DESC").page(params[:page]).per(10).all
-		# end
 		@pastes = Paste.search(params).page(params[:page]).per(10).all
 	end
 
 	def new
+		@paste = Paste.new
 	end
 
 	def show
@@ -38,6 +34,25 @@ class PastesController < ApplicationController
 		respond_to do |format|
 			format.js
 		end
+	end
+
+	def destroyredirect
+		@paste = Paste.find(params[:id])
+		@paste.destroy
+		redirect_to pastes_path
+	end
+
+	def edit
+		@paste = Paste.find(params[:id])
+	end
+
+	def update
+	@paste = Paste.find(params[:id])
+		if @paste.update(paste_params)
+      		redirect_to @paste
+    	else
+      		render 'edit'
+    	end
 	end
 
 

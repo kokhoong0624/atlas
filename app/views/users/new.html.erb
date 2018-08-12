@@ -1,32 +1,49 @@
-<h1> Sign up! </h1>
-<% if !@user.errors.empty? %>
-  <ul>
-    <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
 
-<%= form_with scope: :user, url: users_path, local: true do |form| %>
-<p>
-	<%= form.label :username %><br>
-	<%= form.text_field :username %>
-</p>
 
-<p>
-	<%= form.label :email %><br>
-	<%= form.text_field :email %>
-</p>
+<div class="container-fluid mx-auto" >
+	<h1>Sign up</h1>
+		<% if !@user.errors.empty? %>
+  			<ul>
+   			<% @user.errors.full_messages.each do |message| %>
+      			<div class="alert alert-danger">
+  					<strong>Error:</strong><li><%= message %></li>
+				</div>
+      		<% end %>
+  			</ul>
+		<% end %>
 
-<p>
-	<%= form.label :password %><br>
-	<%= form.password_field :password %>
-</p>
-  <%= recaptcha_tags %>
+<%= form_with scope: :user, url: users_path, local: true, :html => {:id => "newuser", :class => "form-group"} do |form| %>
+		<form>
+		  <div class="form-group row">
+		  	<div class="col-4">
+		    	<label><%= form.label :username %></label>
+		    	<%= form.text_field :username, :class => 'form-control' %>
+			</div>
+		  </div>
+		  <br>
 
-<p>
-	<%= form.submit "Submit" %>
-</p>
-<br>
-<br>
-<% end %>
+		  <div class="form-group row">
+		  	<div class="col-4">
+		    	<label><%= form.label :email %></label>
+		    	<%= form.text_field :email, :class => 'form-control' %>
+			</div>
+		  </div>
+
+		  <br>
+		  <div class="form-group row">
+		  	<div class = "col-4">
+		    	<label><%= form.label :password %> </label>
+		    	<%= form.password_field :password, :class => 'form-control' %>
+		    </div>
+		  </div>
+		  <br>
+
+		  <%= recaptcha_tags %>
+
+		  <br>
+
+		  <%= form.submit :class => 'btn btn-primary' %>
+		  
+		</form>
+	<% end %>
+</div>

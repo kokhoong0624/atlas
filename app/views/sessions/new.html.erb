@@ -1,7 +1,26 @@
-<h1>Login</h1>
 
-<div id="session"><%= form_with url:'/login' do |form| %>
-Username: <%= form.text_field :username %>
-Password: <%= form.password_field :password %>
-<%= form.submit "Sign in"%>
-<% end %></div>
+<div class="container-fluid mx-auto" >
+	<h1>Login</h1>
+
+	<%= form_with url:'/login', :html => {:class => "form-group"} do |form| %>
+		<form id="session">
+		  <div class="form-group row">
+		  	<div class="col-4">
+		    	<label><%= form.label :username %></label>
+		    	<%= form.text_field :username, :class => 'form-control' %>
+			</div>
+		  </div>
+		  <br>
+		  <div class="form-group row">
+		  	<div class = "col-4">
+		    	<label><%= form.label :password %> </label>
+		    	<%= form.password_field :password, :class => 'form-control' %>
+		    </div>
+		  </div>
+		  <br>
+
+		  <%= form.submit "Sign in", :class => 'btn btn-primary' %>
+		  
+		</form>
+	<% end %>
+</div>

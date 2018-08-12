@@ -1,11 +1,40 @@
-
 <br>
-Title: <%= @paste.title %><br>
-Content: <input type="text" value=<%= @paste.content %> id="clipboard" style="border:none;" readonly>
+	<div class="card mb-3" id="dv<%=@paste.id%>">
+	  <div class="card-header">
+	  	<dl class="row">
+		  <dt class=" h3 col-sm-2"> <%= @paste.title %> <br></dt>
+		  	<!-- Show user if available -->
+		  	<% if !@paste.user.nil? %> 
+		  	<dd class="col-sm-10 text-right">
+		    	<dl class="row">
+		      		<dd class="col-sm-10">| by <%= @paste.user.username %></dd>
+		    	</dl>
+		    </dd>
 
-<br>
+		    <% end %>
 
-<button onclick="copyToClipboard()">Copy text</button>
+		</dl>
+	  </div>
+	  <div class="card-body">
+	    <p class="card-text" style = "font-family: 'Lekton', sans-serif;"> <%= @paste.content %></p>
+	    <textarea class="card-text" style="display:none;" id= "clipboard"> <%= @paste.content %></textarea>
+	  </div>
+	  <div>
+	  	<p class="card-text" style = "font-family: 'Lekton'"> URL: <%= request.original_url %> </p>
+	  		  	
+	  </div>
+	  <div class="card-footer text-muted text-right">
+
+
+		<% if logged_in? && current_user.id == @paste.user_id || logged_in? &&current_user.admin? %>
+	  	<%= link_to "Edit", edit_paste_path(@paste.id), :class => "text-muted" %> |
+	  	<%= link_to "Delete", destroyredirect_path(@paste.id), method: :delete, data: { confirm: 'Are you sure you want to delete this paste?'}, :class => "text-muted"%>
+
+	  	<% end %>
+
+	  	<button class="text-muted" onclick="copyToClipboard(<%=@paste.id%>)">Copy text</button>
+	  </div>
+	</div>
 
 
 
