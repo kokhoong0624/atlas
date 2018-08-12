@@ -16,6 +16,11 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
+#bootstrap
+gem 'bootstrap'
+
+gem 'jquery-rails'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -29,6 +34,21 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use gem to authorize admin/user/guest
 gem 'cancan'
+
+# Paginate
+gem 'kaminari'
+
+#figaro
+gem 'figaro'
+
+#recaptcha
+gem 'recaptcha', require: 'recaptcha/rails'
+
+gem 'rspec'
+
+gem 'rspec-rails'
+
+gem 'rspec-given'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

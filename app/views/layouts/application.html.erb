@@ -5,16 +5,79 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Bootstrap + Jquery CDN -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lekton" rel="stylesheet">
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <% if logged_in? %>
-    Signed in as <%= current_user.username %> | <%= link_to "Log Out", 'logout' %>
-    <% else %>
-    <%= link_to 'Login', '/login' %> | <%= link_to 'Sign up', '/signup' %>
-    <% end %>
+
+
+
+    <!-- navbar starts here -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="/">Atlas</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/pastes/new"> New Paste <span class="sr-only">(current)</span></a>
+          </li>
+
+        <% if logged_in? %>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Signed in as <%= current_user.username %> <span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item active">
+            <a class="nav-link" href="/logout"> Log Out <span class="sr-only">(current)</span></a>
+          </li>
+
+        <% else %>
+
+            <li class="nav-item active">
+            <a class="nav-link" href="/login"> Log In <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item active">
+            <a class="nav-link" href="/users/new"> Sign Up <span class="sr-only">(current)</span></a>
+            </li>
+        <% end %>
+        </ul> 
+
+        <!-- search form starts here -->
+
+        <%= form_with url:pastes_path, :class => "form-inline my-2 my-lg-0" ,local:true, method: :get do |form| %>
+        <%= text_field_tag :search, "", :class => "form-control mr-sm-2" %>
+        <%= submit_tag "Search Pastes", name: nil, :class => "btn btn-outline-success my-2 my-sm-0" %>
+        <% end %>
+        <!-- search form ends here -->
+      </div>
+    </nav>
+    <!-- navbar ends here -->
     <%= yield %>
+
+    <br>
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <%= link_to "All Pastes", pastes_path, :class => "btn btn-lg btn-primary" %>
+      </div>
+    </div>
   </body>
 </html>

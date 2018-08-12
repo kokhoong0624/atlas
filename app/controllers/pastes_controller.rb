@@ -1,5 +1,16 @@
 class PastesController < ApplicationController
+
+	before_action :check_update_rights, only: [:update, :destroy]
+	def index
+		@pastes = Paste.search(params).page(params[:page]).per(10).all
+	end
+
 	def new
+		@paste = Paste.new
+	end
+
+	def show
+		@paste = Paste.find(params[:id])
 	end
 
 	def create
@@ -9,10 +20,8 @@ class PastesController < ApplicationController
 			@paste.user = current_user
 		end
 
-		byebug
-
 		if @paste.save
-			redirect_to root_path
+			redirect_to pastes_path
 		else
 			redirect_back(fallback_location: 'root')
 		end
@@ -20,6 +29,30 @@ class PastesController < ApplicationController
 	end
 
 	def destroy
+		@paste = Paste.find(params[:id])
+		@paste.destroy
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def destroyredirect
+		@paste = Paste.find(params[:id])
+		@paste.destroy
+		redirect_to pastes_path
+	end
+
+	def edit
+		@paste = Paste.find(params[:id])
+	end
+
+	def update
+	@paste = Paste.find(params[:id])
+		if @paste.update(paste_params)
+      		redirect_to @paste
+    	else
+      		render 'edit'
+    	end
 	end
 
 
@@ -27,6 +60,18 @@ class PastesController < ApplicationController
 	#whitelist params
 	def paste_params
 		params.require(:paste).permit(:title, :content)
+	end
+
+	def check_update_rights
+		@paste = Paste.find(params[:id])
+		if current_user.id != @paste.user_id && !current_user.admin?
+			flash[:denied] = "Access denied!"
+			redirect_to pastes_path
+		end
+	end
+
+	def search_params
+		params.require(:search).permit(:search)
 	end
 
 end
