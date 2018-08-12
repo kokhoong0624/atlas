@@ -1,5 +1,6 @@
 
 <link href='https://fonts.googleapis.com/css?family=Noto+Serif:700,700italic' rel='stylesheet' type='text/css'>
+<h1 style="text-align:center">Welcome to Atlas!</h1>
 <canvas></canvas>
 <!-- Style from https://codepen.io/gbnikolov/pen/jEqQdG -->
 <style>
@@ -52,7 +53,7 @@ canvas {
     }, 
     currentPos: 0,
     changeLetter: function() {
-        var letters = 'Atlas,Copy,Paste,Share',
+        var letters = 'Copy,Paste,Share',
             letters = letters.split(',');
         particleAlphabet.time = letters[particleAlphabet.currentPos];
         particleAlphabet.currentPos++;
