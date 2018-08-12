@@ -9,7 +9,7 @@ describe "the signin process", type: :feature do
       fill_in 'username', with: 'username'
       fill_in 'password', with: 'password'
     end
-    click_button 'Save'
+    click_button 'Sign in'
     expect(page).to have_content 'Signed in'
   end
 end
