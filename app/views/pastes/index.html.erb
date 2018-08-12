@@ -21,7 +21,8 @@
 	  </div>
 	  <div class="card-body">
 	    <p class="card-text" style = "font-family: 'Lekton', sans-serif;"> <%= x.content.first(500) %></p>
-	    <textarea class="card-text" style="display:none;" id= "<%=x.id%>"> <%= x.content.first(500) %></textarea>
+	    <input type="text" style="opacity:0;border:none;" value="<%= x.content.first(500) %>" id="<%=x.id%>" readonly>
+
 	  </div>
 	  <div class="card-footer text-muted text-right">
 	  	<%= link_to "Click to view more", paste_path(x.id), :class => "text-muted"%>

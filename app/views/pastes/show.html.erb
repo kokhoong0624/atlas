@@ -17,7 +17,7 @@
 	  </div>
 	  <div class="card-body">
 	    <p class="card-text" style = "font-family: 'Lekton', sans-serif;"> <%= @paste.content %></p>
-	    <textarea class="card-text" style="display:none;" id= "clipboard"> <%= @paste.content %></textarea>
+	    <input type="text" style="opacity:0;border:none;" value="<%= @paste.content %>" id="clipboard" readonly>
 	  </div>
 	  <div>
 	  	<p class="card-text" style = "font-family: 'Lekton'"> URL: <%= request.original_url %> </p>
